@@ -22,7 +22,7 @@ public class CustomerController {
         return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{id}", produces = {"appliaction/json"})
+    @GetMapping(value = "/{id}", produces = {"application/json"})
     public ResponseEntity<?> getById(@PathVariable UUID id) {
         Customer customer = customerService.findById(id);
         return new ResponseEntity<>(customer, HttpStatus.OK);

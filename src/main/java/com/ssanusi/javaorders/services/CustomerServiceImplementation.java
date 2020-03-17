@@ -1,5 +1,6 @@
 package com.ssanusi.javaorders.services;
 
+import com.ssanusi.javaorders.models.Agent;
 import com.ssanusi.javaorders.models.Customer;
 import com.ssanusi.javaorders.repositories.CustomerRepository;
 
@@ -11,6 +12,8 @@ import java.util.UUID;
 public class CustomerServiceImplementation implements CustomerService {
 
     private CustomerRepository customerRepo;
+
+    private AgentService agentService;
 
     @Override
     public List<Customer> findAll() {
@@ -27,6 +30,7 @@ public class CustomerServiceImplementation implements CustomerService {
     @Override
     public Customer save(Customer customer) {
         Customer newCustomer = new Customer();
+        Agent agent = agentService.findById(customer.getAgent().getAgentCode());
         newCustomer.setCustomerName(customer.getCustomerName());
         newCustomer.setEmail(customer.getEmail());
         newCustomer.setPhone(customer.getPhone());
@@ -37,7 +41,7 @@ public class CustomerServiceImplementation implements CustomerService {
         newCustomer.setPaymentAmount(customer.getPaymentAmount());
         newCustomer.setReceiveAmount(customer.getReceiveAmount());
         newCustomer.setWorkingArea(customer.getWorkingArea());
-        newCustomer.setAgent(customer.getAgent());
+        newCustomer.setAgent(agent);
         return customerRepo.save(newCustomer);
     }
 
