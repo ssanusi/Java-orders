@@ -1,12 +1,11 @@
 package com.ssanusi.javaorders.models;
 
 
-import org.hibernate.annotations.GenericGenerator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 
 @Entity
@@ -14,25 +13,28 @@ import java.util.UUID;
 public class Customer {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID customerCode;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long custcode;
 
-    @Column(unique = true, nullable = false)
     private String email;
-    private String customerCity;
-    private String customerName;
+    private String custcity;
+    private String custname;
     private String grade;
-    private double openingAmount;
-    private double outstandingAmount;
-    private double paymentAmount;
+    private double openingamt;
+    private double outstandingamt;
+    private double paymentamt;
     private String phone;
-    private double receiveAmount;
-    private String workingArea;
-
+    private double receiveamt;
+    private String workingarea;
+    private String custcountry;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "agentCode", nullable = false)
+    @JsonIgnoreProperties("customers")
+    @JoinColumn(name = "agentcode", nullable = false)
     private Agent agent;
+
+    public Customer(String custcountry) {
+        this.custcountry = custcountry;
+    }
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();
@@ -41,18 +43,19 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String email, String customerCity, String customerName, String grade, double openingAmount, double outstandingAmount, double paymentAmount, String phone, double receiveAmount, String workingArea, Agent agent) {
+    public Customer(String email, String custcity, String custname, String grade, double openingamt, double outstandingamt, double paymentamt, String phone, double receiveamt, String workingarea, Agent agent, String custcountry) {
         this.email = email;
-        this.customerCity = customerCity;
-        this.customerName = customerName;
+        this.custcity = custcity;
+        this.custname = custname;
         this.grade = grade;
-        this.openingAmount = openingAmount;
-        this.outstandingAmount = outstandingAmount;
-        this.paymentAmount = paymentAmount;
+        this.openingamt = openingamt;
+        this.outstandingamt = outstandingamt;
+        this.paymentamt = paymentamt;
         this.phone = phone;
-        this.receiveAmount = receiveAmount;
-        this.workingArea = workingArea;
+        this.receiveamt = receiveamt;
+        this.workingarea = workingarea;
         this.agent = agent;
+        this.custcountry = custcountry;
     }
 
     public String getEmail() {
@@ -63,28 +66,28 @@ public class Customer {
         this.email = email;
     }
 
-    public UUID getCustomerCode() {
-        return customerCode;
+    public long getCustcode() {
+        return custcode;
     }
 
-    public void setCustomerCode(UUID customerCode) {
-        this.customerCode = customerCode;
+    public void setCustcode(long customerCode) {
+        this.custcode = customerCode;
     }
 
-    public String getCustomerCity() {
-        return customerCity;
+    public String getCustcity() {
+        return custcity;
     }
 
-    public void setCustomerCity(String customerCity) {
-        this.customerCity = customerCity;
+    public void setCustcity(String customerCity) {
+        this.custcity = customerCity;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getCustname() {
+        return custname;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setCustname(String customerName) {
+        this.custname = customerName;
     }
 
     public String getGrade() {
@@ -95,28 +98,28 @@ public class Customer {
         this.grade = grade;
     }
 
-    public double getOpeningAmount() {
-        return openingAmount;
+    public double getOpeningamt() {
+        return openingamt;
     }
 
-    public void setOpeningAmount(double openingAmount) {
-        this.openingAmount = openingAmount;
+    public void setOpeningamt(double openingAmount) {
+        this.openingamt = openingAmount;
     }
 
-    public double getOutstandingAmount() {
-        return outstandingAmount;
+    public double getOutstandingamt() {
+        return outstandingamt;
     }
 
-    public void setOutstandingAmount(double outstandingAmount) {
-        this.outstandingAmount = outstandingAmount;
+    public void setOutstandingamt(double outstandingAmount) {
+        this.outstandingamt = outstandingAmount;
     }
 
-    public double getPaymentAmount() {
-        return paymentAmount;
+    public double getPaymentamt() {
+        return paymentamt;
     }
 
-    public void setPaymentAmount(double paymentAmount) {
-        this.paymentAmount = paymentAmount;
+    public void setPaymentamt(double paymentAmount) {
+        this.paymentamt = paymentAmount;
     }
 
     public String getPhone() {
@@ -127,20 +130,20 @@ public class Customer {
         this.phone = phone;
     }
 
-    public double getReceiveAmount() {
-        return receiveAmount;
+    public double getReceiveamt() {
+        return receiveamt;
     }
 
-    public void setReceiveAmount(double receiveAmount) {
-        this.receiveAmount = receiveAmount;
+    public void setReceiveamt(double receiveAmount) {
+        this.receiveamt = receiveAmount;
     }
 
-    public String getWorkingArea() {
-        return workingArea;
+    public String getWorkingarea() {
+        return workingarea;
     }
 
-    public void setWorkingArea(String workingArea) {
-        this.workingArea = workingArea;
+    public void setWorkingarea(String workingArea) {
+        this.workingarea = workingArea;
     }
 
     public Agent getAgent() {

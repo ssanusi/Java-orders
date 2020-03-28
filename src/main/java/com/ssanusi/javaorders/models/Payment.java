@@ -1,40 +1,37 @@
 package com.ssanusi.javaorders.models;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "payments")
 public class Payment {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID paymentId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long paymentid;
     private String type;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "payments")
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "orderspayments", joinColumns = {@JoinColumn(name = "paymentid")}, inverseJoinColumns = {@JoinColumn(name = "ordnum")})
     private Set<Order> orders = new HashSet<>();
 
     public Payment() {
     }
 
 
-    public Payment(UUID paymentId, String type) {
-        this.paymentId = paymentId;
+    public Payment(long paymentid, String type) {
+        this.paymentid = paymentid;
         this.type = type;
     }
 
-    public UUID getPaymentId() {
-        return paymentId;
+    public long getPaymentid() {
+        return paymentid;
     }
 
-    public void setPaymentId(UUID paymentId) {
-        this.paymentId = paymentId;
+    public void setPaymentid(long paymentId) {
+        this.paymentid = paymentId;
     }
 
     public String getType() {

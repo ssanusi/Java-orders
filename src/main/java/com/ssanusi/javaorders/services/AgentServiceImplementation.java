@@ -9,7 +9,6 @@ import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Transactional
 @Service(value = "agentService")
@@ -26,7 +25,7 @@ public class AgentServiceImplementation implements AgentService {
     }
 
     @Override
-    public Agent findById(UUID agentCode) {
+    public Agent findById(long agentCode) {
 
         return agentrepo.findById(agentCode).orElseThrow(() -> new EntityNotFoundException("Not Found " + agentCode));
     }
@@ -35,22 +34,22 @@ public class AgentServiceImplementation implements AgentService {
     @Override
     public Agent save(Agent agent) {
         Agent newAgent = new Agent();
-        newAgent.setAgentName(agent.getAgentName());
+        newAgent.setAgentname(agent.getAgentname());
         newAgent.setCommission(agent.getCommission());
         newAgent.setCountry(agent.getCountry());
-        newAgent.setWorkingArea(agent.getWorkingArea());
+        newAgent.setWorkingarea(agent.getWorkingarea());
         newAgent.setPhone(agent.getPhone());
         newAgent.setEmail(agent.getEmail());
         return agentrepo.save(newAgent);
     }
 
     @Override
-    public Agent update(Agent agentToUpdate, UUID agentCode) {
+    public Agent update(Agent agentToUpdate, long agentCode) {
         return null;
     }
 
     @Override
-    public void delete(UUID agentCode) {
+    public void delete(long agentCode) {
 
     }
 }

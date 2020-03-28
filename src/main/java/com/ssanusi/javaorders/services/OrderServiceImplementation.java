@@ -6,7 +6,6 @@ import com.ssanusi.javaorders.repositories.OrderRepository;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class OrderServiceImplementation implements OrderServices {
 
@@ -20,7 +19,7 @@ public class OrderServiceImplementation implements OrderServices {
     }
 
     @Override
-    public Order findOne(UUID orderNumber) {
+    public Order findOne(long orderNumber) {
         return orderRepo.findById(orderNumber).orElseThrow(() -> new EntityNotFoundException("Not Found " + orderNumber));
     }
 
@@ -30,12 +29,12 @@ public class OrderServiceImplementation implements OrderServices {
     }
 
     @Override
-    public Order update(Order order, UUID orderNumber) {
+    public Order update(Order order, long orderNumber) {
         return null;
     }
 
     @Override
-    public void delete(UUID orderNumber) {
+    public void delete(long orderNumber) {
 
     }
 }

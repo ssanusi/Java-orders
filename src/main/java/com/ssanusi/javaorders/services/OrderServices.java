@@ -3,17 +3,17 @@ package com.ssanusi.javaorders.services;
 import com.ssanusi.javaorders.models.Order;
 
 import java.util.List;
-import java.util.UUID;
+
 
 public interface OrderServices {
 
     List<Order> findAll();
 
-    Order findOne(UUID orderNumber);
+    Order findOne(long orderNumber);
 
     Order save(Order order);
 
-    Order update(Order order, UUID orderNumber);
+    Order update(Order order, long orderNumber);
 
-    void delete(UUID orderNumber);
+    void delete(long orderNumber);
 }

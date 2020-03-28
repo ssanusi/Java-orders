@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.UUID;
+
 
 @RestController
 @RequestMapping("/customers")
@@ -23,9 +23,15 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/{id}", produces = {"application/json"})
-    public ResponseEntity<?> getById(@PathVariable UUID id) {
+    public ResponseEntity<?> getById(@PathVariable long id) {
         Customer customer = customerService.findById(id);
         return new ResponseEntity<>(customer, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/namelike/{title}", produces = {"application/json"})
+    public ResponseEntity<?> getCustomerByName(@PathVariable String title) {
+        List<Customer> customers = customerService.findCustomerByName(title);
+        return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 
     @PostMapping(value = "", consumes = {"application/json"})

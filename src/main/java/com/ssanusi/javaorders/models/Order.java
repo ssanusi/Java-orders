@@ -1,27 +1,23 @@
 package com.ssanusi.javaorders.models;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "orders")
 public class Order {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID orderNumber;
-    private double advanceAmount;
-    private double orderAmount;
-    private String orderDescription;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long ordnum;
+    private double advanceamount;
+    private double ordamount;
+    private String orderdescription;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customerCode", nullable = false)
+    @JoinColumn(name = "custcode", nullable = false)
     private Customer customer;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -31,43 +27,43 @@ public class Order {
     public Order() {
     }
 
-    public Order(double advanceAmount, double orderAmount, String orderDescription, Customer customer) {
-        this.advanceAmount = advanceAmount;
-        this.orderAmount = orderAmount;
-        this.orderDescription = orderDescription;
+    public Order(double advanceamount, double ordamount, String orderdescription, Customer customer) {
+        this.advanceamount = advanceamount;
+        this.ordamount = ordamount;
+        this.orderdescription = orderdescription;
         this.customer = customer;
     }
 
-    public UUID getOrderNumber() {
-        return orderNumber;
+    public long getOrdnum() {
+        return ordnum;
     }
 
-    public void setOrderNumber(UUID orderNumber) {
-        this.orderNumber = orderNumber;
+    public void setOrdnum(long orderNumber) {
+        this.ordnum = orderNumber;
     }
 
-    public double getAdvanceAmount() {
-        return advanceAmount;
+    public double getAdvanceamount() {
+        return advanceamount;
     }
 
-    public void setAdvanceAmount(double advanceAmount) {
-        this.advanceAmount = advanceAmount;
+    public void setAdvanceamount(double advanceAmount) {
+        this.advanceamount = advanceAmount;
     }
 
-    public double getOrderAmount() {
-        return orderAmount;
+    public double getOrdamount() {
+        return ordamount;
     }
 
-    public void setOrderAmount(double orderAmount) {
-        this.orderAmount = orderAmount;
+    public void setOrdamount(double orderAmount) {
+        this.ordamount = orderAmount;
     }
 
-    public String getOrderDescription() {
-        return orderDescription;
+    public String getOrderdescription() {
+        return orderdescription;
     }
 
-    public void setOrderDescription(String orderDescription) {
-        this.orderDescription = orderDescription;
+    public void setOrderdescription(String orderDescription) {
+        this.orderdescription = orderDescription;
     }
 
     public Customer getCustomer() {

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/orders")
@@ -23,7 +22,7 @@ public class OrderController {
     }
 
     @GetMapping(value = "/{id}", produces = {"application/json"})
-    public ResponseEntity<?> getOneOrder(@PathVariable UUID id) {
+    public ResponseEntity<?> getOneOrder(@PathVariable long id) {
         Order order = orderServices.findOne(id);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }

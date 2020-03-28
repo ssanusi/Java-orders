@@ -7,7 +7,6 @@ import com.ssanusi.javaorders.repositories.CustomerRepository;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class CustomerServiceImplementation implements CustomerService {
 
@@ -23,35 +22,41 @@ public class CustomerServiceImplementation implements CustomerService {
     }
 
     @Override
-    public Customer findById(UUID customerCode) {
+    public Customer findById(long customerCode) {
         return customerRepo.findById(customerCode).orElseThrow(() -> new EntityNotFoundException("Not Found " + customerCode));
     }
 
     @Override
     public Customer save(Customer customer) {
         Customer newCustomer = new Customer();
-        Agent agent = agentService.findById(customer.getAgent().getAgentCode());
-        newCustomer.setCustomerName(customer.getCustomerName());
+        Agent agent = agentService.findById(customer.getAgent().getAgentcode());
+        newCustomer.setCustname(customer.getCustname());
         newCustomer.setEmail(customer.getEmail());
         newCustomer.setPhone(customer.getPhone());
-        newCustomer.setCustomerCity(customer.getCustomerCity());
+        newCustomer.setCustcity(customer.getCustcity());
         newCustomer.setGrade(customer.getGrade());
-        newCustomer.setOpeningAmount(customer.getOpeningAmount());
-        newCustomer.setOutstandingAmount(customer.getOutstandingAmount());
-        newCustomer.setPaymentAmount(customer.getPaymentAmount());
-        newCustomer.setReceiveAmount(customer.getReceiveAmount());
-        newCustomer.setWorkingArea(customer.getWorkingArea());
+        newCustomer.setOpeningamt(customer.getOpeningamt());
+        newCustomer.setOutstandingamt(customer.getOutstandingamt());
+        newCustomer.setPaymentamt(customer.getPaymentamt());
+        newCustomer.setReceiveamt(customer.getReceiveamt());
+        newCustomer.setWorkingarea(customer.getWorkingarea());
         newCustomer.setAgent(agent);
         return customerRepo.save(newCustomer);
     }
 
     @Override
-    public Customer update(Customer customer, UUID customerCode) {
+    public Customer update(Customer customer, long customerCode) {
         return null;
     }
 
     @Override
-    public void delete(UUID customerCode) {
+    public void delete(long customerCode) {
 
+    }
+
+    @Override
+    public List<Customer> findCustomerByName(String customer) {
+        List<Customer> customers = customerRepo.findAllBycustnameContains(customer);
+        return customers;
     }
 }

@@ -1,11 +1,10 @@
 package com.ssanusi.javaorders.models;
 
-import org.hibernate.annotations.GenericGenerator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 
 @Entity
@@ -13,49 +12,48 @@ import java.util.UUID;
 public class Agent {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    private UUID agentCode;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long agentcode;
 
-    @Column(unique = true, nullable = false)
     private String email;
 
-    private String agentName;
+    private String agentname;
     private double commission;
     private String country;
     private String phone;
-    private String workingArea;
+    private String workingarea;
 
     @OneToMany(mappedBy = "agent", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("agent")
     private List<Customer> customers = new ArrayList<>();
 
 
     public Agent() {
     }
 
-    public Agent(String agentName, String email, double commission, String country, String phone, String workingArea) {
-        this.agentName = agentName;
+    public Agent(String agentname, String email, double commission, String country, String phone, String workingArea) {
+        this.agentname = agentname;
         this.commission = commission;
         this.country = country;
         this.phone = phone;
-        this.workingArea = workingArea;
+        this.workingarea = workingArea;
         this.email = email;
     }
 
-    public UUID getAgentCode() {
-        return agentCode;
+    public long getAgentcode() {
+        return agentcode;
     }
 
-    public void setAgentCode(UUID agentCode) {
-        this.agentCode = agentCode;
+    public void setAgentcode(long agentCode) {
+        this.agentcode = agentCode;
     }
 
-    public String getAgentName() {
-        return agentName;
+    public String getAgentname() {
+        return agentname;
     }
 
-    public void setAgentName(String agentName) {
-        this.agentName = agentName;
+    public void setAgentname(String agentName) {
+        this.agentname = agentName;
     }
 
     public double getCommission() {
@@ -82,12 +80,12 @@ public class Agent {
         this.phone = phone;
     }
 
-    public String getWorkingArea() {
-        return workingArea;
+    public String getWorkingarea() {
+        return workingarea;
     }
 
-    public void setWorkingArea(String workingArea) {
-        this.workingArea = workingArea;
+    public void setWorkingarea(String workingArea) {
+        this.workingarea = workingArea;
     }
 
     public List<Customer> getCustomers() {
