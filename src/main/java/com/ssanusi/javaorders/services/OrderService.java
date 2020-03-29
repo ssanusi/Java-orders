@@ -5,7 +5,7 @@ import com.ssanusi.javaorders.models.Order;
 import java.util.List;
 
 
-public interface OrderServices {
+public interface OrderService {
 
     List<Order> findAll();
 

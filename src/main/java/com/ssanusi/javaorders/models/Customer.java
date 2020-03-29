@@ -25,16 +25,14 @@ public class Customer {
     private double paymentamt;
     private String phone;
     private double receiveamt;
-    private String workingarea;
     private String custcountry;
+    private String workingarea;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties("customers")
     @JoinColumn(name = "agentcode", nullable = false)
+    @JsonIgnoreProperties("customers")
     private Agent agent;
 
-    public Customer(String custcountry) {
-        this.custcountry = custcountry;
-    }
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Order> orders = new ArrayList<>();

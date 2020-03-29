@@ -2,6 +2,7 @@ package com.ssanusi.javaorders.controllers;
 
 import com.ssanusi.javaorders.models.Customer;
 import com.ssanusi.javaorders.services.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequestMapping("/customers")
 public class CustomerController {
 
+    @Autowired
     private CustomerService customerService;
 
     @GetMapping(value = "", produces = {"application/json"})

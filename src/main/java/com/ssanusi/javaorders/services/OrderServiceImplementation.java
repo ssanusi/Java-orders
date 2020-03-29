@@ -2,20 +2,24 @@ package com.ssanusi.javaorders.services;
 
 import com.ssanusi.javaorders.models.Order;
 import com.ssanusi.javaorders.repositories.OrderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderServiceImplementation implements OrderServices {
+@Service
+public class OrderServiceImplementation implements OrderService {
 
+    @Autowired
     private OrderRepository orderRepo;
 
     @Override
     public List<Order> findAll() {
         List<Order> orders = new ArrayList<>();
         orderRepo.findAll().iterator().forEachRemaining(orders::add);
-        return null;
+        return orders;
     }
 
     @Override
